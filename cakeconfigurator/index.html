@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Cake Configurator</title>
+    <style>
+      /* Add your CSS styles here */
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Cake Configurator</h1>
+    </header>
+    <div id="tiers">
+      <label for="tier">Select Tier:</label>
+      <select id="tier" onchange="updateTiers()">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+      <button onclick="addTier()">Add Tier</button>
+    </div>
+    <div id="inches">
+      <label for="inch">Select Inches:</label>
+      <select id="inch">
+        <option value="4">4</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="10">10</option>
+        <option value="12">12</option>
+      </select>
+    </div>
+    <div id="styles">
+      <label for="style">Select Style:</label>
+      <select id="style">
+        <option value="lemon">Lemon</option>
+        <option value="chocolate">Chocolate</option>
+        <option value="banana-oatmeal">Banana Oatmeal</option>
+      </select>
+    </div>
+    <footer>
+      <h3></h3>
+    </footer>
+
+    <script>
+      function updateTiers() {
+        // Logic to update tier 2 or 3 based on the selected tier
+        var selectedTier = document.getElementById("tier").value;
+        var inchesDropdown = document.getElementById("inch");
+
+        // Clear previous options
+        inchesDropdown.innerHTML = "";
+
+        // Add new options based on the selected tier
+        for (var i = 4; i <= 12; i += 2) {
+          if (i <= selectedTier * 2) {
+            var option = document.createElement("option");
+            option.value = i;
+            option.text = i;
+            inchesDropdown.add(option);
+          }
+        }
+      }
+
+      function addTier() {
+        var tierDropdown = document.getElementById("tier");
+        var newTier = parseInt(tierDropdown.value) + 1;
+
+        // Limit the number of tiers to a maximum of 3
+        if (newTier <= 3) {
+          // Add the new tier as an option
+          var option = document.createElement("option");
+          option.value = newTier;
+          option.text = newTier;
+          tierDropdown.add(option);
+
+          // Select the newly added tier
+          tierDropdown.value = newTier;
+
+          // Update the inches dropdown based on the new tier
+          updateTiers();
+        } else {
+          alert("Maximum number of tiers reached (3).");
+        }
+      }
+
+      // Initial call to set up the initial state
+      updateTiers();
+    </script>
+  </body>
+</html>
